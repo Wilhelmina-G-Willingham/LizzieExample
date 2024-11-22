@@ -15,104 +15,118 @@ body
 {
 background-color: var(--color2);
 }
-.main-container {
-    max-width: 25em;
-    margin: 0 auto;
-    font-family: Inter; 
+@media (min-width: 25em)
+{
+    .main-container {
+        max-width: 25em;
+        margin: 0 auto;
+        font-family: Inter; 
+
+        display: grid;
+        column-gap: 1em;
+    }
+
+    .banner
+    {
+        background-color: var(--color1);
+        color: var(--main-font);
+        border-radius: 1.5em 1.5em 1.5em 1.5em;
+        padding: 0.5em;
+        font-family: 'Franklin Gothic Medium';
+        text-align: center;
+     
+    }
+
+    #banner
+    {
+        grid-area: ban;
+    }
+
+    #banner-title
+    {
+        font-size: 2em;
+    }
+
+    #banner-subtitle
+    {
+        font-size: 1em;
+    }
+
+    #map 
+    { 
+        min-height: 48em;
+        max-height: 60em;
+        border-radius: 1.5em 1.5em 1.5em 1.5em; 
+        grid-area: map;
+    }
+
+    .input-panel
+    {
+        font-family: Inter; 
+        max-width: 25em;
+        margin: 0 auto;
+
+        color: var(--main-font);
+        padding: 0.5em;
+        text-align: center;
 
     display: grid;
     column-gap: 1em;
-}
+    }
 
-.banner
-{
-    background-color: var(--color1);
-    color: var(--main-font);
-    border-radius: 1.5em 1.5em 1.5em 1.5em;
-    padding: 0.5em;
-    font-family: 'Franklin Gothic Medium';
-    text-align: center;
-    max-width: 25em;
-}
+    #input-panel
+    {
+        grid-area: inp;
+    }
+    #instruction
+    {
+        text-align: center;
+    }
 
-#banner
-{
-    grid-area: ban;
-}
+    #submit-story
+    {
+        grid-area: bt1;
+        font-size: 1em;
+        background-color: var(--color5);
+        border-radius: 1em 1em 1em 1em;
+    }
 
-#banner-title
-{
-    font-size: 2em;
-}
+    #get-stories
+    {
+        grid-area: bt2;
+        font-size: 1em;
+        background-color: var(--color4);
+        border-radius: 1em 1em 1em 1em;
+    }
 
-#banner-subtitle
-{
-    font-size: 1em;
-}
+    #story-input
+    {
+        grid-area: tex;
+    }
 
-#map 
-{ 
-    min-height: 48em;
-    max-height: 48em;
-    max-width: 25em;
-    border-radius: 1.5em 1.5em 1.5em 1.5em; 
-    grid-area: map;
-}
+    /*phone layout StyleSheet*/
 
-.input-panel
-{
-    font-family: Inter; 
-    max-width: 72em;
-    margin: 0 auto;
+    .main-container
+    {
+        grid-template:
+        "ban ban ban ban" minmax(2em, auto)
+        ".   .   .   .  "   minmax(2em, auto)
+        "map map map map" minmax(48em, auto)
+        ".   .   .   .  "   minmax(0.5em, auto)
+        "inp inp inp inp" minmax(3em, auto)
 
-    color: var(--main-font);
-    padding: 0.5em;
-    text-align: center;
-
-display: grid;
-column-gap: 1em;
-}
-
-#input-panel
-{
-    grid-area: inp;
-}
-
-#submit-story
-{
-    grid-area: bt1;
-    font-size: 1em;
-    background-color: var(--color5);
-    border-radius: 1em 1em 1em 1em;
-}
-
-#get-stories
-{
-    grid-area: bt2;
-    font-size: 1em;
-    background-color: var(--color4);
-    border-radius: 1em 1em 1em 1em;
-}
-
-#story-input
-{
-    width: 72em;
-    grid-area: tex;
-}
-
-/*phone layout StyleSheet*/
-
-.main-container
-{
+    }
+    .input-panel
+    {
     grid-template:
-    "ban ban ban ban" minmax(2em, auto)
-    ".   .   .   .  "   minmax(2em, auto)
-    "map map map map" minmax(48em, auto)
-    ".   .   .   .  "   minmax(0.5em, auto)
-    "inp inp inp inp" minmax(3em, auto)
-
+    ".   .   .   . "   minmax(1em, auto)
+    "ins ins ins ins" minmax(1em, auto)
+    "tex tex tex tex" minmax(3em, auto)
+    ".   .   .   ."   minmax(1em, auto)
+    "bt1 bt1 bt1 bt1" minmax(3em, auto)
+    "bt2 bt2 bt2 bt2" minmax(3em, auto)
+    }
 }
-
 @media (min-width: 75em)
 {
     .main-container {
