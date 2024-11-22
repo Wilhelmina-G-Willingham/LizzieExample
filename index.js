@@ -103,8 +103,8 @@ function getPosition(options) {
 }
 
 getStoriesButton.addEventListener('click', async (event) => { 
-    let storyDataObject = await getStories();
-    extractStories(storyDataObject);
+    let position = await getPosition();
+    map.setView([position.coords.latitude, position.coords.longitude], zoomlevel);
 });
 
 submitStoryButton.addEventListener('click', async (event) => {
