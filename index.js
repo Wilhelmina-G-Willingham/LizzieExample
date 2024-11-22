@@ -114,6 +114,7 @@ submitStoryButton.addEventListener('click', async (event) => {
     if (!storyIds) { console.log("Couldn't get list of story ids"); return; }
     let maxId = Math.max(...storyIds);
     let updatedStoryDataObject = await addStory(maxId+1, storyTextInput.value, position.coords.latitude, position.coords.longitude);
+    storyTextInput.value = "";
     extractStories(updatedStoryDataObject);
     
 });
