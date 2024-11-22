@@ -1,9 +1,9 @@
 const pantryId = "91f1e6be-e651-40a0-87f0-38bab048a1d1"; // Change this to your own pantryid
 
-const submitStoryButton = document.getElementById("submitStory");
-const getStoriesButton = document.getElementById("getStories");
-const storyTextInput = document.getElementById("storyInput");
-const dataReadout = document.getElementById("dataReadout");
+const submitStoryButton = document.getElementById("submit-story");
+const getStoriesButton = document.getElementById("get-stories");
+const storyTextInput = document.getElementById("story-input");
+//const dataReadout = document.getElementById("dataReadout");
 
 let zoomlevel = 17;
 
@@ -22,6 +22,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 //initialise over current location
 window.onload = async () => {
+    alert('The Geolocation API has some accuracy issues with some browsers. \n \nFor best results, please use the google chrome or mozilla firefox browsers on desktop, and samsung internet or webview iOS on mobile. \n \nI hope you enjoy Worldly Writers <3')
     console.log('Initialising webpage');
     navigator.geolocation.getCurrentPosition(function (position) {
         console.log(`Coordinates Retrieved: latitude = ${position.coords.latitude}, longitude = ${position.coords.longitude}`);
@@ -58,7 +59,7 @@ const addStory = async (id, storyText, latitude, longitude) => {
 //stringifies object for the purpose of displaying it.
 const displayStories = (storyDataObject) => {
     let strStories = JSON.stringify(storyDataObject, undefined, 2);
-    dataReadout.innerHTML = `<pre><code>${strStories}</code></pre>`;
+    //dataReadout.innerHTML = `<pre><code>${strStories}</code></pre>`;
 }
 
 const extractStories = (storyDataObject) => {
@@ -116,6 +117,3 @@ submitStoryButton.addEventListener('click', async (event) => {
     extractStories(updatedStoryDataObject);
     
 });
-
-marker.popupopen.addEventListener()
-
