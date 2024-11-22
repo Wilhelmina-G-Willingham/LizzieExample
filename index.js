@@ -1,14 +1,39 @@
-const pantryId = "95f0c4c2-187c-42fa-a536-9df81811d815"; // Change this to your own pantryid
+const pantryId = "91f1e6be-e651-40a0-87f0-38bab048a1d1"; // Change this to your own pantryid
 
 const submitStoryButton = document.getElementById("submitStory");
 const getStoriesButton = document.getElementById("getStories");
 const storyTextInput = document.getElementById("storyInput");
 const dataReadout = document.getElementById("dataReadout");
 
+let zoomlevel = 17;
+
 let latitude = 0;
 let longitude = 0;
 
 let storyIds = [];
+
+//initialising the map over London, as per leaflet API
+var map = L.map('map').setView([51.505, -0.09], zoomlevel);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 20,
+    minZoom: 1,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+//initialise over current location
+window.onload = async () => {
+    console.log('Initialising webpage');
+    navigator.geolocation.getCurrentPosition(function (position) {
+        console.log(`Coordinates Retrieved: latitude = ${position.coords.latitude}, longitude = ${position.coords.longitude}`);
+
+        map.setView([position.coords.latitude, position.coords.longitude], zoomlevel);
+
+    });
+
+    let storyDataObject = await getStories();
+    extractStories(storyDataObject);
+}
+
 
 const getStories = async() => {
     const options = { method: 'POST', headers: { 'Content-Type': 'application/json' }};
@@ -30,11 +55,31 @@ const addStory = async (id, storyText, latitude, longitude) => {
     return objResult;
 }
 
-
+//stringifies object for the purpose of displaying it.
 const displayStories = (storyDataObject) => {
     let strStories = JSON.stringify(storyDataObject, undefined, 2);
     dataReadout.innerHTML = `<pre><code>${strStories}</code></pre>`;
 }
+
+const extractStories = (storyDataObject) => {
+    //for each story in the pantry basket, pull their coords, and their story, and place a marker with a popup event at the given location
+    for (var i = 0; i < Object.keys(storyDataObject).length; i++) 
+    {
+        var coords = [];
+        var story = "";
+        coords.push(storyDataObject[i]["latitude"]);
+        coords.push(storyDataObject[i]["longitude"]);
+        story = (storyDataObject[i]["story"])
+        console.log(coords);
+        console.log(story);
+        var marker = L.marker(coords).addTo(map);
+        marker.bindPopup(story);
+        
+    }
+    
+
+}
+
 
 
 const extractStoryIds = (storyDataObject) => {
@@ -56,12 +101,10 @@ function getPosition(options) {
     );
 }
 
-
 getStoriesButton.addEventListener('click', async (event) => { 
     let storyDataObject = await getStories();
-    displayStories(storyDataObject);
+    extractStories(storyDataObject);
 });
-
 
 submitStoryButton.addEventListener('click', async (event) => {
     let position = await getPosition();
@@ -70,5 +113,9 @@ submitStoryButton.addEventListener('click', async (event) => {
     if (!storyIds) { console.log("Couldn't get list of story ids"); return; }
     let maxId = Math.max(...storyIds);
     let updatedStoryDataObject = await addStory(maxId+1, storyTextInput.value, position.coords.latitude, position.coords.longitude);
-    displayStories(updatedStoryDataObject);
+    extractStories(updatedStoryDataObject);
+    
 });
+
+marker.popupopen.addEventListener()
+
