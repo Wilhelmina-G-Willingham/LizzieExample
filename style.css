@@ -53,7 +53,7 @@ background-color: var(--color2);
 #map 
 { 
     min-height: 48em;
-    max-height: 72em;
+    max-height: 48em;
     max-width: 25em;
     border-radius: 1.5em 1.5em 1.5em 1.5em; 
     grid-area: map;
